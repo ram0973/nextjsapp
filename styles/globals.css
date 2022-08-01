@@ -1,0 +1,50 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  height: 100vh !important;
+  width: 100vw;
+  margin: 0;
+}
+
+header {
+  background: #66bb6a;
+}
+
+main {
+  display: flex;
+  height: 100%;
+}
+
+nav {
+  background: #e6ee9c;
+}
+
+article {
+  flex: 2;
+  background: white;
+}
+
+aside {
+  flex: 1;
+  background: #FFE082;
+}
+
+footer {
+  background: #4caf50;
+}
+
+header,
+footer,
+article,
+nav,
+aside {
+  padding: 1em;
+}
