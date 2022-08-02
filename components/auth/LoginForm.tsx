@@ -4,9 +4,9 @@ import { mutate } from "swr";
 
 import UserAPI from "../../api/user";
 
-const SignupForm = () => {
+const LoginForm = () => {
   const [isLoading, setLoading] = React.useState(false);
-  const [errors, setErrors] = React.useState([]);
+  const [errors, setErrors] = React.useState({});
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [rememberme, setRememberme] = React.useState(true);
@@ -24,20 +24,21 @@ const SignupForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-
     try {
-      const { data, status } = await UserAPI.signup(
+      const { data, status } = await UserAPI.login(
         email,
         password
       );
+      console.log(data)
       if (status !== 200 && data?.errors) {
         setErrors(data.errors);
       }
-      if (data?.user) {
-        window.localStorage.setItem("user", JSON.stringify(data.user));
-        mutate("user", data.user);
-        Router.push("/");
-      }
+      setErrors({});
+      //if (data?.user) {
+      //  window.localStorage.setItem("user", JSON.stringify(data.user));
+      //  mutate("user", data.user);
+      //  Router.push("/");
+      //}
     } catch (error) {
       console.error(error);
     } finally {
@@ -48,6 +49,9 @@ const SignupForm = () => {
   return (
     <>
       <form onSubmit={handleSubmit}>
+        <div className="mb-6">
+        {errors['detail'] ? <span className="block text-red-600 mt-2">{errors['detail']}</span> : ""}
+        </div>  
         <div className="mb-6">
           <label htmlFor="email" className="block mb-2 text-sm font-semibold text-gray-900 dark:text-gray-300">Your email</label>
           <input
@@ -91,11 +95,11 @@ const SignupForm = () => {
           type="submit"
           disabled={isLoading}
         >
-          Sign up
+          Login
         </button>
       </form>
     </>
   );
 };
 
-export default SignupForm;
+export default LoginForm;

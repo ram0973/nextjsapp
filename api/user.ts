@@ -18,10 +18,11 @@ const UserAPI = {
     }
   },
   login: async (email, password) => {
+    console.log("!");
     try {
       const response = await axios.post(
-        `${SERVER_BASE_URL}/users/login`,
-        JSON.stringify({ user: { email, password } }),
+        `${SERVER_BASE_URL}/auth/login`,
+        JSON.stringify({'email': email, 'password': password}),
         {
           headers: {
             "Content-Type": "application/json",

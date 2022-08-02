@@ -1,8 +1,8 @@
 import Head from "next/head";
 import React from "react";
 
-import CustomLink from "../../components/common/CustomLink";
 import SignupForm from "../../components/auth/SignupForm";
+import Link from "next/link";
 
 const Register = () => (
   <>
@@ -10,22 +10,11 @@ const Register = () => (
     <title>REGISTER | NEXT REALWORLD</title>
     <meta name="description" content="Please register before login" />
   </Head>
-  <div className="auth-page">
-    <div className="container page">
-      <div className="row">
-        <div className="col-md-6 offset-md-3 col-xs-12">
-          <h1 className="text-xs-center">Sign Up</h1>
-          <p className="text-xs-center">
-            <CustomLink href="/user/login" as="/user/login">
-              Have an account?
-            </CustomLink>
-          </p>
-
-          <SignupForm />
-        </div>
-      </div>
-    </div>
-  </div>
+    <h1 className="font-bold">Sign Up</h1>
+    <p className="">
+      <Link href="/auth/login"><a className="block underline my-4">Have an account?</a></Link>
+    </p>
+    <SignupForm />
   </>
 );
 
