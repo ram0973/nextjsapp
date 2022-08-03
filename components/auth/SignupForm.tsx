@@ -3,6 +3,7 @@ import React from "react";
 import { mutate } from "swr";
 
 import UserAPI from "../../api/user";
+import ListErrors from "../common/ListErrors";
 
 const SignupForm = () => {
   const [isLoading, setLoading] = React.useState(false);
@@ -30,8 +31,8 @@ const SignupForm = () => {
         email,
         password
       );
-      if (status !== 200 && data?.errors) {
-        setErrors(data.errors);
+      if (status !== 200 && data?.validationErrors) {
+        setErrors(data.validationErrors);
       }
       if (data?.user) {
         window.localStorage.setItem("user", JSON.stringify(data.user));
@@ -58,7 +59,8 @@ const SignupForm = () => {
               onChange={handleEmailChange}
               required
           />
-          {errors['email'] ? <span className="block text-red-600 mt-2">{errors['email']}</span> : ""}
+          <ListErrors errors={errors} fieldName="email"/>
+          {/*  {errors['email'] ? <span className="block text-red-600 mt-2">{errors['email']}</span> : ""} */}
         </div>  
 
         <div className="mb-6">
@@ -71,7 +73,8 @@ const SignupForm = () => {
               onChange={handlePasswordChange}
               required
             />
-            {errors['password'] ? <span className="block text-red-600 mt-2">{errors['password']}</span> : ""}
+            <ListErrors errors={errors} fieldName="password"/>
+            {/* {errors['password'] ? <span className="block text-red-600 mt-2">{errors['password']}</span> : ""} */}
         </div>
 
         <div className="flex items-start mb-6">

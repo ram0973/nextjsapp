@@ -3,10 +3,12 @@ import React from "react";
 import { mutate } from "swr";
 
 import UserAPI from "../../api/user";
+import ListErrors from "../common/ListErrors";
 
 const LoginForm = () => {
   const [isLoading, setLoading] = React.useState(false);
-  const [errors, setErrors] = React.useState({});
+  const [message, setMessage] = React.useState("");
+  const [errors, setErrors] = React.useState([]);
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [rememberme, setRememberme] = React.useState(true);
@@ -30,10 +32,15 @@ const LoginForm = () => {
         password
       );
       console.log(data)
-      if (status !== 200 && data?.errors) {
-        setErrors(data.errors);
+      if (status !== 200) {
+        if (data?.validationErrors) {
+          setErrors(data.validationErrors);
+          setMessage("");
+        } else {
+          setMessage(data.message);
+        }  
       }
-      setErrors({});
+      setErrors([]);
       //if (data?.user) {
       //  window.localStorage.setItem("user", JSON.stringify(data.user));
       //  mutate("user", data.user);
@@ -49,9 +56,11 @@ const LoginForm = () => {
   return (
     <>
       <form onSubmit={handleSubmit}>
+        { message !== "" &&
         <div className="mb-6">
-        {errors['detail'] ? <span className="block text-red-600 mt-2">{errors['detail']}</span> : ""}
+          <span className="block text-red-600 mt-2">{ message }</span>
         </div>  
+        }  
         <div className="mb-6">
           <label htmlFor="email" className="block mb-2 text-sm font-semibold text-gray-900 dark:text-gray-300">Your email</label>
           <input
@@ -62,7 +71,8 @@ const LoginForm = () => {
               onChange={handleEmailChange}
               required
           />
-          {errors['email'] ? <span className="block text-red-600 mt-2">{errors['email']}</span> : ""}
+          <ListErrors errors={errors} fieldName="email"/>
+          {/* {errors['email'] ? <span className="block text-red-600 mt-2">{errors['email']}</span> : ""} */}
         </div>  
 
         <div className="mb-6">
@@ -75,7 +85,8 @@ const LoginForm = () => {
               onChange={handlePasswordChange}
               required
             />
-            {errors['password'] ? <span className="block text-red-600 mt-2">{errors['password']}</span> : ""}
+            <ListErrors errors={errors} fieldName="password"/>
+            {/* {errors['password'] ? <span className="block text-red-600 mt-2">{errors['password']}</span> : ""} */}
         </div>
 
         <div className="flex items-start mb-6">
