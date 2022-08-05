@@ -1,26 +1,24 @@
 import axios from "axios";
 
-import { SERVER_BASE_URL } from "../utils/constants";
+import {SERVER_BASE_URL} from "../utils/constants";
 
 const UserAPI = {
   current: async () => {
     const user: any = window.localStorage.getItem("user");
     const token = user?.token;
     try {
-      const response = await axios.get(`/user`, {
+      return await axios.get(`/user`, {
         headers: {
-          Authorization: `Token ${encodeURIComponent(token)}`,
+          Authorization: `Bearer ${encodeURIComponent(token)}`,
         },
       });
-      return response;
-    } catch (error) {
+    } catch (error: any) {
       return error.response;
     }
   },
-  login: async (email, password) => {
-    console.log("!");
+  login: async (email: string, password: string) => {
     try {
-      const response = await axios.post(
+      return await axios.post(
         `${SERVER_BASE_URL}/auth/login`,
         JSON.stringify({'email': email, 'password': password}),
         {
@@ -29,79 +27,42 @@ const UserAPI = {
           },
         }
       );
-      return response;
-    } catch (error) {
+    } catch (error: any) {
       return error.response;
     }
   },
-  signup: async (email, password) => {
+  signup: async (email: string, password: string) => {
     try {
-      const response = await axios.post(
+      return await axios.post(
         `${SERVER_BASE_URL}/auth/signup/`,
-        JSON.stringify({ email, password }),
+        JSON.stringify({email, password}),
         {
           headers: {
             "Content-Type": "application/json",
           },
         }
       );
-      return response;
-    } catch (error) {
+    } catch (error: any) {
       return error.response;
     }
   },
-  save: async (user) => {
+
+  save: async (user: object) => {
     try {
-      const response = await axios.put(
+      return await axios.put(
         `${SERVER_BASE_URL}/user`,
-        JSON.stringify({ user }),
+        JSON.stringify({user}),
         {
           headers: {
             "Content-Type": "application/json",
           },
         }
       );
-      return response;
-    } catch (error) {
+    } catch (error: any) {
       return error.response;
     }
   },
-  follow: async (username) => {
-    const user: any = JSON.parse(window.localStorage.getItem("user"));
-    const token = user?.token;
-    try {
-      const response = await axios.post(
-        `${SERVER_BASE_URL}/profiles/${username}/follow`,
-        {},
-        {
-          headers: {
-            Authorization: `Token ${encodeURIComponent(token)}`,
-          },
-        }
-      );
-      return response;
-    } catch (error) {
-      return error.response;
-    }
-  },
-  unfollow: async (username) => {
-    const user: any = JSON.parse(window.localStorage.getItem("user"));
-    const token = user?.token;
-    try {
-      const response = await axios.delete(
-        `${SERVER_BASE_URL}/profiles/${username}/follow`,
-        {
-          headers: {
-            Authorization: `Token ${encodeURIComponent(token)}`,
-          },
-        }
-      );
-      return response;
-    } catch (error) {
-      return error.response;
-    }
-  },
-  get: async (username) => axios.get(`${SERVER_BASE_URL}/profiles/${username}`),
+
 };
 
 export default UserAPI;

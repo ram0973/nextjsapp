@@ -7,7 +7,7 @@ import Link from "next/link";
 const Register = () => (
   <>
   <Head>
-    <title>REGISTER | NEXT REALWORLD</title>
+    <title>REGISTER</title>
     <meta name="description" content="Please register before login" />
   </Head>
     <h1 className="font-bold">Sign Up</h1>
