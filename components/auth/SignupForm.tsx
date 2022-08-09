@@ -2,7 +2,7 @@ import Router from "next/router";
 import React, {EventHandler, FormEvent} from "react";
 import { mutate } from "swr";
 
-import UserAPI from "../../api/user";
+import UserAPI from "../../api/users";
 import ErrorsList, {ValidationError} from "../common/ErrorsList";
 
 const SignupForm = () => {

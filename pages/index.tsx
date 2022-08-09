@@ -1,20 +1,22 @@
-import React from "react";
-import Head from "next/head";
+import React, {useEffect, useState} from "react";
+import {Article, ArticlesPaged} from "../api/types";
+
+import ArticleAPI from "../api/articles";
+import {GetServerSideProps} from "next";
 import ArticleCard from "../components/articles/ArticleCard";
+import ArticlesPagination from "../components/articles/ArticlesPagination";
+import ArticlesOnMain from "../components/articles/ArticlesOnMain";
+import {useRouter} from "next/router";
 
-const article: Article = { title: "Lambda and final variables", slug: "article-slug",
-  excerpt: "This is first blog post", image: "/images/1.jpg", createdAt: "2022-10-13 12:33:00"}
+export default function IndexPage() {
+  let router = useRouter();
+  let id = Number(router.query["page"]);
+  console.log(id);
+  let articlesPaged: ArticlesPaged = await ArticleAPI.articles(id).then((res) => res);
+  //console.log(articlesPaged)
+  return (<></>);
+  {/*<ArticlesOnMain articlesPaged = {articlesPaged} />*/}
 
-const articles = fetch('https://jsonplaceholder.typicode.com/posts').then(response => response.json())
-
-
-export default function Home() {
-  return (
-    <>
-      <Head>
-        <title>React NextJS REST API application</title>
-      </Head>
-      <ArticleCard article={ article } />
-    </>
-  )
 }
+
+

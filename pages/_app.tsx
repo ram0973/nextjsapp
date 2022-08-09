@@ -1,7 +1,7 @@
 import '../styles/globals.css'
 import { AppProps } from 'next/app';
 import Head from "next/head";
-import ArticlesWidget from "../components/articles/ArticlesWidget";
+import ArticlesWidget from "../components/articles/ArticlesOnAside";
 import Nav from "../components/nav/Nav";
 export default function NextApp({Component, pageProps}: AppProps) {
   return (
@@ -9,11 +9,11 @@ export default function NextApp({Component, pageProps}: AppProps) {
       {/*<p>{ JSON.parse(window.localStorage.getItem('user')).email }</p>*/}
 
       <Nav />
-      <main className="">
-        <article className="">
+      <main className="flex w-full flex-col md:flex-row flex-wrap md:flex-nowrap py-4 flex-grow">
+        <article className="layout g-white shadow-lg rounded-lg p-0 mr-8 w-full md:w-2/3">
           <Component {...pageProps} />
         </article>
-        <aside className="">
+        <aside className="layout bg-white shadow-lg rounded-lg p-0 w-full md:w-1/3">
           <ArticlesWidget />
         </aside>
       </main>

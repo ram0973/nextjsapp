@@ -10,11 +10,13 @@ const Login = () => (
     <title>LOGIN</title>
     <meta name="description" content="Login" />
   </Head>
-    <h1 className="font-bold">Login</h1>
-    <p className="">
-      <Link href="/auth/signup"><a className="block underline my-4">Don't have an account?</a></Link>
-    </p>
-    <LoginForm />
+    <div className="bg-white shadow-lg rounded-lg p-8 mr-8">
+      <h1 className="font-bold">Login</h1>
+      <p className="">
+        <Link href="/auth/signup"><a className="block underline my-4">Don't have an account?</a></Link>
+      </p>
+      <LoginForm />
+    </div>
   </>
 );
 

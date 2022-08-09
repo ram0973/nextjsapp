@@ -20,8 +20,6 @@ a {
 body {
   display: flex;
   flex-direction: column;
-  height: 100vh;
-  width: 100vw;
   margin: 0;
   padding: 0;
   background-image: url("../public/bg.jpg");
@@ -33,25 +31,21 @@ header {
 }
 
 main {
-  /* display: flex;
-  height: 100%; */
 }
 
 nav {
 
 }
 
-article {
-  flex: 2;
+article.layout {
+  //flex: 2;
 }
 
-aside {
-  flex: 1;
-  background: #FFE082;
+aside.layout {
+  //flex: 1;
 }
 
 footer {
-  background: #4caf50;
 }
 
 header,
